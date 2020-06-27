@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="well">错误信息：<h4 th:text="${msg}"></h4></div>
+<form action="" method="post" class="form-horizontal col-sm-8" role="form">
+    <div class="form-group">
+        <label class="col-sm-1 control-label"> 账号：</label>
+        <div class="col-sm-4">
+            <input type="text" name="username" class="form-control" value="admin"/></div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-1 control-label">密码：</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control"
+                   name="password" value="123456"/>
+        </div>
+    </div>
+    <label class="col-sm-1"> 验证码：</label>
+    <div class="col-sm-2">
+        <input style="width: 150px" class="form-control" name="authCode" type="text">
+    </div>
+    <img alt="验证码" th:src="@{/getGifCode}" class="col-sm-2" onclick="random(this)">
+
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="rememberMe"/>记住我</label>
+            </div>
+        </div>
+    </div>
+    <p><input type="submit" class="btn btn-default" value="登录"/></p>
+    <p>
+        <button type="button" class="btn btn-default ajaxLogin">测试异步登录</button>
+    </p>
+    <p>
+        <button type="button" class="btn btn-default testVisit">测试异步访问</button>
+    </p>
+</form>
+</body>
+<script th:inline="javascript">
+    function random(tmp) {
+        tmp.src = "/getGifCode?v=" + Math.random();
+    }
+
+    $(document).ready(function () {
+        //测试异步登陆
+        $(".ajaxLogin").click(function () {
+            $.post("/ajaxLogin", {
+                    username: $("input[name='username']").val(),
+                    password: $("input[name='password']").val(),
+                    authCode: $("input[name='authCode']").val(),
+                    rememberMe:
+                        true
+                },
+                function (data, status) {
+                    alert("数据: \n" + data + "\n状态: " + status);
+                }
+            );
+        });
+        //测试异步访问接口
+        $(".testVisit").click(function () {
+            $.get("/userInfo/ajaxVisit", function (data, success) {
+                var result = JSON.stringify(data);
+                alert("数据: \n" + result + "\n状态: " + status);
+            })
+        });
+    });
+</script>
+</html>

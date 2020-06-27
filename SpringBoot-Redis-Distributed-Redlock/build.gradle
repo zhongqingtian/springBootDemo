@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':SpringBoot-Support')
+    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile 'org.redisson:redisson:3.9.1'
+}
