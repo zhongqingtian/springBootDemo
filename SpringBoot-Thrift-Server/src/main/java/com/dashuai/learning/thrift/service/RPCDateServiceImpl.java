@@ -8,14 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Rpc date service
- * <p/>
- * Created in 2019.06.28
- * <p/>
- *
- * @author Liaozihong
- */
+
+// 实现rpc server端
 @Controller
 public class RPCDateServiceImpl implements RPCDateService.Iface {
     /**

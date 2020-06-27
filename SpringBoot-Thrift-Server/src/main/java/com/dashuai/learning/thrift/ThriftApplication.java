@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class ThriftApplication {
 
-    @Bean(initMethod = "start")
-    public RPCThriftServer rpcThriftServer() {
+    @Bean(initMethod = "start") // 初始化类RPCThriftServer 调动start()方法
+    public RPCThriftServer rpcThriftServer() { //
         return new RPCThriftServer();
     }
 

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RPCThriftServer {
     private final Logger logger = LoggerFactory.getLogger(RPCThriftServer.class);
-
+    // 外部的值动态注入到Bean中,将resource下配置的属性值注入port字段
     @Value("${thrift.port}")
     private int port;
     @Value("${thrift.minWorkerThreads}")
@@ -28,7 +28,7 @@ public class RPCThriftServer {
     private TBinaryProtocol.Factory protocolFactory;
     private TTransportFactory transportFactory;
 
-    @Autowired
+    @Autowired // 注入实现的方法
     private RPCDateServiceImpl rpcDateService;
 
     public void init() {
