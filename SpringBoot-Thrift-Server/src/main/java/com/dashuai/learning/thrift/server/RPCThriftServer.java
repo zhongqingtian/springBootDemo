@@ -37,10 +37,13 @@ public class RPCThriftServer {
     }
 
     public void start() {
+        // 把实现类注册到thrift服务器
         RPCDateService.Processor processor = new RPCDateService.Processor<RPCDateService.Iface>(rpcDateService);
         init();
         try {
+            // 本服务启动绑定的socket端口
             TServerTransport transport = new TServerSocket(port);
+            //
             TThreadPoolServer.Args tArgs = new TThreadPoolServer.Args(transport);
             tArgs.processor(processor)
                     .protocolFactory(protocolFactory)
